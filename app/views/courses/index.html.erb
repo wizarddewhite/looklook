@@ -8,8 +8,6 @@
   <tr>
     <td>Title</td>
     <td>Creator</td>
-    <td>Action</td>
-    <td>Action</td>
   </tr>
   </thread>
 
@@ -23,10 +21,10 @@
       <%= course.user.nickname %>
     </td>
     <td>
+    <% if current_user && current_user == course.user %>
       <%= link_to("Edit", edit_course_path(course)) %>
-    </td>
-    <td>
       <%= link_to("Destroy", course_path(course), :method => :delete, :data => { :confirm => "Are you sure?" }) %>
+    <% end %>
     </td>
   </tr>
   <% end %>
