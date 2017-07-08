@@ -1,3 +1,8 @@
+<div class="group">
+    <% if current_user && current_user == @course.user %>
+      <%= link_to("Edit", edit_course_path(@course), class: "btn btn-primary pull-right")%>
+    <% end %>
+</div>
 
 <h1> <%= @course.title %> </h1>
 <p> Price <%= @course.price %> </p>
