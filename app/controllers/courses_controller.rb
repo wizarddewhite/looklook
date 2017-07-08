@@ -1,5 +1,6 @@
 class CoursesController < ApplicationController
   before_action :authenticate_user! , only: [:new, :edit, :create, :update, :destroy]
+  before_action :find_course_and_check_permission, only: [:edit, :update, :destroy]
 
   def index
     @courses = Course.all
@@ -25,12 +26,9 @@ class CoursesController < ApplicationController
   end
 
   def edit
-    @course = Course.find(params[:id])
   end
 
   def update
-    @course = Course.find(params[:id])
-    @course.user = current_user
     if @course.update(course_params)
       redirect_to courses_path
     else
@@ -39,10 +37,7 @@ class CoursesController < ApplicationController
   end
 
   def destroy
-    @course = Course.find(params[:id])
-
     @course.destroy
-
     redirect_to courses_path
   end
 
@@ -50,5 +45,13 @@ private
 
   def course_params
     params.require(:course).permit(:title, :description, :price)
+  end
+
+  def find_course_and_check_permission
+    @course = Course.find(params[:id])
+
+    if current_user != @course.user
+      redirect_to root_path, alert: "You have no permission."
+    end
   end
 end
