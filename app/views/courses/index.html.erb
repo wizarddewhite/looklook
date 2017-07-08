@@ -2,11 +2,25 @@
   <%= link_to("Add a course", new_course_path, :class => "btn btn-default" ) %>
 </div>
 
+
 <table class="table table-boldered">
+  <thread>
+  <tr>
+    <td>Title</td>
+    <td>Creator</td>
+    <td>Action</td>
+    <td>Action</td>
+  </tr>
+  </thread>
+
+  <tbody>
   <% @courses.each do |course| %>
   <tr>
     <td>
       <%= link_to(course.title, course_path(course)) %>
+    </td>
+    <td>
+      <%= course.user.nickname %>
     </td>
     <td>
       <%= link_to("Edit", edit_course_path(course)) %>
@@ -16,4 +30,5 @@
     </td>
   </tr>
   <% end %>
+  </tbody>
 </table>

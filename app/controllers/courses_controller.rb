@@ -15,6 +15,7 @@ class CoursesController < ApplicationController
 
   def create
     @course = Course.new(course_params)
+    @course.user = current_user
 
     if @course.save
       redirect_to courses_path
@@ -29,6 +30,7 @@ class CoursesController < ApplicationController
 
   def update
     @course = Course.find(params[:id])
+    @course.user = current_user
     if @course.update(course_params)
       redirect_to courses_path
     else
