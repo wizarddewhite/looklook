@@ -1,6 +1,7 @@
 class CoursesController < ApplicationController
   before_action :authenticate_user! , only: [:new, :edit, :create, :update, :destroy, :join, :quit]
   before_action :find_course_and_check_permission, only: [:edit, :update, :destroy]
+  before_action :require_is_teacher, only: [:new, :edit, :create, :update, :destroy]
 
   def index
     @courses = Course.all

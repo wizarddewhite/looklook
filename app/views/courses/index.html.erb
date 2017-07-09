@@ -1,7 +1,8 @@
+<% if current_user && current_user.is_teacher? %>
 <div class="pull-right">
   <%= link_to("Add a course", new_course_path, :class => "btn btn-default" ) %>
 </div>
-
+<% end %>
 
 <table class="table table-boldered">
   <thread>
