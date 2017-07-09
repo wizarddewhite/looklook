@@ -23,6 +23,7 @@
                           <li><%= link_to(content_tag(:i, "管理界面", class: 'fa fa-info-circle'), admin_users_path) %></li>
                         <% end %>
                         <li class="divider"> </li>
+                        <li> <%= link_to("My Classes", account_classes_path) %></li>
                         <li> <%= link_to("My Courses", account_courses_path) %></li>
                         <li class="divider"> </li>
                         <li><%= link_to(content_tag(:i, "修改", class: 'fa fa-user-circle'), edit_registration_path(:user)) %></li>

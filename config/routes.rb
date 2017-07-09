@@ -16,6 +16,7 @@ Rails.application.routes.draw do
 
   namespace :account do
     resources :courses
+    resources :classes
   end
 
 end

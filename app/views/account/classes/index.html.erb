@@ -1,0 +1,26 @@
+<div class="col-md-12">
+
+  <h2 class="text-center"> 我发布的课程 </h2>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th> # </th>
+        <th> Title </th>
+        <th> Description </th>
+        <th> Last Update </th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @courses.each do |course| %>
+        <tr>
+          <td> # </td>
+          <td> <%= link_to(course.title, course_path(course)) %> </td>
+          <td> <%= course.description %> </td>
+          <td> <%= course.updated_at %> </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
