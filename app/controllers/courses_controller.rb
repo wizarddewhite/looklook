@@ -19,6 +19,7 @@ class CoursesController < ApplicationController
     @course.user = current_user
 
     if @course.save
+      current_user.join!(@course)
       redirect_to courses_path
     else
       render :new
