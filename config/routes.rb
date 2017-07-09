@@ -7,6 +7,11 @@ Rails.application.routes.draw do
     resources :users
   end
 
-  resources :courses
+  resources :courses do
+    member do
+      post :join
+      post :quit
+    end
+  end
 
 end

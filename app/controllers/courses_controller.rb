@@ -1,5 +1,5 @@
 class CoursesController < ApplicationController
-  before_action :authenticate_user! , only: [:new, :edit, :create, :update, :destroy]
+  before_action :authenticate_user! , only: [:new, :edit, :create, :update, :destroy, :join, :quit]
   before_action :find_course_and_check_permission, only: [:edit, :update, :destroy]
 
   def index
@@ -39,6 +39,32 @@ class CoursesController < ApplicationController
   def destroy
     @course.destroy
     redirect_to courses_path
+  end
+
+  def join
+    @course = Course.find(params[:id])
+
+    if !current_user.has_joined_course?(@course)
+      current_user.join!(@course)
+      flash[:notice] = "加入本课程成功！"
+    else
+      flash[:warning] = "您已加入本课程！"
+    end
+
+    redirect_to course_path(@course)
+  end
+
+  def quit
+    @course = Course.find(params[:id])
+
+    if current_user.has_joined_course?(@course)
+      current_user.quit!(@course)
+      flash[:notice] = "已退出本课程！"
+    else
+      flash[:warning] = "您还没加入本课程，如何退出？？？"
+    end
+
+    redirect_to course_path(@course)
   end
 
 private
