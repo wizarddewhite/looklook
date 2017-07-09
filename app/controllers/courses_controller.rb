@@ -5,6 +5,11 @@ class CoursesController < ApplicationController
 
   def index
     @courses = Course.all
+
+    if params[:course_category_id].present?
+       #flash[:notice] = "Hobby #{params[:course_category_id].split(",")}"
+       @courses = @courses.where( :course_category_id => params[:course_category_id]  )
+     end
   end
 
   def show

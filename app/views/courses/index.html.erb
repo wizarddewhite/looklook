@@ -4,6 +4,12 @@
 </div>
 <% end %>
 
+<%= form_tag courses_path, :method => :get do %>
+  选择课程类别
+<%= select_tag :course_category_id, options_for_select(CourseCategory.all.map{ |c| [c.title, c.id] }, params[:course_ids]), :multiple => true , :class => "form-control" %>
+<%= submit_tag "Submit" %>
+<% end %>
+
 <table class="table table-boldered">
   <thread>
   <tr>
@@ -31,3 +37,7 @@
   <% end %>
   </tbody>
 </table>
+
+<script>
+  $("#course_category_id").select2();
+</script>
