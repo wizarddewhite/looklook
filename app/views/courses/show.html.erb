@@ -17,4 +17,4 @@
 <h1> <%= @course.title %> </h1>
 <p> Price <%= @course.price %> </p>
 
-<p> <%= @course.description %> </p>
+<p> <%= render_course_description(@course) %> </p>
