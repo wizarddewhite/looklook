@@ -9,9 +9,17 @@
   </div>
 
   <div class="group">
+    <%= f.association :course_category %>
+  </div>
+
+  <div class="group">
     <%= f.input :price %>
   </div>
 
   <%= f.submit "Submit", data: { disable_with: "Submitting..." } %>
 
 <% end %>
+
+<script>
+  $("#course_course_category_id").select2();
+</script>
