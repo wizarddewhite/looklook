@@ -7,6 +7,8 @@
 <%= form_tag courses_path, :method => :get do %>
   选择课程类别
 <%= select_tag :course_category_id, options_for_select(CourseCategory.all.map{ |c| [c.title, c.id] }, params[:course_ids]), :multiple => true , :class => "form-control" %>
+  选择课程老师
+<%= select_tag :user_id, options_for_select(User.where(:is_teacher => true).map{ |u| [u.nickname, u.id] }, params[:user_ids]), :multiple => true , :class => "form-control" %>
 <%= submit_tag "Submit" %>
 <% end %>
 
@@ -40,4 +42,5 @@
 
 <script>
   $("#course_category_id").select2();
+  $("#user_id").select2();
 </script>

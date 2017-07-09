@@ -10,6 +10,11 @@ class CoursesController < ApplicationController
        #flash[:notice] = "Hobby #{params[:course_category_id].split(",")}"
        @courses = @courses.where( :course_category_id => params[:course_category_id]  )
      end
+
+     if params[:user_id].present?
+        #flash[:notice] = "Hobby #{params[:course_category_id].split(",")}"
+        @courses = @courses.where( :user_id => params[:user_id] )
+      end
   end
 
   def show
