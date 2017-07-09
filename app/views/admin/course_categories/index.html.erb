@@ -1,0 +1,28 @@
+<div class="pull-right">
+  <%= link_to("Add a course category", new_admin_course_category_path, :class => "btn btn-default" ) %>
+</div>
+
+<table class="table table-boldered">
+  <thead>
+       <tr>
+           <td>类别</td>
+           <td>创建时间</td>
+       </tr>
+   </thead>
+ <tbody>
+ <% @course_categories.each do |course_category| %>
+ <tr>
+   <td>
+     <%= course_category.title %>
+   </td>
+   <td>
+     <%= course_category.created_at %>
+   </td>
+   <td>
+     <%= link_to("Edit", edit_admin_course_category_path(course_category)) %>
+     <%= link_to("Delete", admin_course_category_path(course_category), method: :delete, data: {confirm: "Are you sure?"}) %>
+   </td>
+ </tr>
+ <% end %>
+ </tbody>
+</table>
