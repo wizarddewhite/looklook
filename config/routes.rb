@@ -14,4 +14,8 @@ Rails.application.routes.draw do
     end
   end
 
+  namespace :account do
+    resources :courses
+  end
+
 end
