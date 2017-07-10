@@ -10,6 +10,8 @@ class Course < ApplicationRecord
 
   belongs_to :course_category
 
+  scope :published, -> { where(is_hidden: false) }
+
   def publish!
     self.is_hidden = false
     self.save

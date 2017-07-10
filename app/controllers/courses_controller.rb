@@ -15,7 +15,7 @@ class CoursesController < ApplicationController
     end
 
     if !(current_user && current_user.is_admin)
-      @courses = @courses.where(:is_hidden => false)
+      @courses = @courses.published
     end
 
     if params[:course_category_id].present?
