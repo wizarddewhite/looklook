@@ -1,7 +1,7 @@
 class CoursesController < ApplicationController
-  before_action :authenticate_user! , only: [:new, :edit, :create, :update, :destroy, :join, :quit]
+  before_action :authenticate_user! , only: [:new, :edit, :create, :update, :destroy, :join, :quit, :publish, :hide]
   before_action :find_course_and_check_permission, only: [:edit, :update, :destroy]
-  before_action :require_is_teacher, only: [:new, :edit, :create, :update, :destroy]
+  before_action :require_is_teacher, only: [:new, :edit, :create, :update, :destroy, :publish, :hide]
 
   def index
 
@@ -12,6 +12,10 @@ class CoursesController < ApplicationController
       Course.order("price DESC")
     else
       Course.all
+    end
+
+    if !(current_user && current_user.is_admin)
+      @courses = @courses.where(:is_hidden => false)
     end
 
     if params[:course_category_id].present?
@@ -28,6 +32,14 @@ class CoursesController < ApplicationController
 
   def show
       @course = Course.find(params[:id])
+
+      # hidden course could only be viewed by creator or admin
+      if @course.is_hidden
+        if !current_user || !current_user.is_admin || @course.user != current_user
+          flash[:warning] = "No such Course"
+          redirect_to courses_path
+        end
+      end
   end
 
   def new
@@ -88,10 +100,22 @@ class CoursesController < ApplicationController
     redirect_to course_path(@course)
   end
 
+  def publish
+    @course = Course.find(params[:id])
+    @course.publish!
+    redirect_to :back
+  end
+
+  def hide
+    @course = Course.find(params[:id])
+    @course.hide!
+    redirect_to :back
+  end
+
 private
 
   def course_params
-    params.require(:course).permit(:title, :description, :price, :course_category_id)
+    params.require(:course).permit(:title, :description, :price, :course_category_id, :is_hidden)
   end
 
   def find_course_and_check_permission

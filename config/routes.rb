@@ -12,6 +12,9 @@ Rails.application.routes.draw do
     member do
       post :join
       post :quit
+
+      post :publish
+      post :hide
     end
   end
 

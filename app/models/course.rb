@@ -9,4 +9,14 @@ class Course < ApplicationRecord
   has_many :students, :through => :course_user_relationships, :source => :user
 
   belongs_to :course_category
+
+  def publish!
+    self.is_hidden = false
+    self.save
+  end
+
+  def hide!
+    self.is_hidden = true
+    self.save
+  end
 end

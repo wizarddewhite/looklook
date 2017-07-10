@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170709141520) do
+ActiveRecord::Schema.define(version: 20170710090252) do
 
   create_table "course_categories", force: :cascade do |t|
     t.string   "title"
@@ -29,11 +29,12 @@ ActiveRecord::Schema.define(version: 20170709141520) do
     t.string   "title"
     t.text     "description"
     t.integer  "price"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
     t.integer  "user_id"
     t.integer  "category_id"
     t.integer  "course_category_id"
+    t.boolean  "is_hidden",          default: true
   end
 
   create_table "users", force: :cascade do |t|
