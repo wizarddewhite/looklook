@@ -12,6 +12,20 @@
 <%= submit_tag "Submit" %>
 <% end %>
 
+<div class="dropdown clearfix pull-right">
+    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenuDivider" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+      排序 <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" aria-labelledby="dropdownMenuDivider">
+        <li>
+            <%= link_to("按照价格排序", courses_path(:order => "price")) %>
+        </li>
+        <li>
+            <%= link_to("按照价格倒排", courses_path(:order => "price_rev")) %>
+        </li>
+    </ul>
+</div>
+
 <table class="table table-boldered">
   <thread>
   <tr>

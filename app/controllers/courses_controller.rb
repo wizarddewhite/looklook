@@ -4,17 +4,26 @@ class CoursesController < ApplicationController
   before_action :require_is_teacher, only: [:new, :edit, :create, :update, :destroy]
 
   def index
-    @courses = Course.all
+
+    @courses = case params[:order]
+    when 'price'
+      Course.order("price DESC")
+    when 'price_rev'
+      Course.order("price DESC")
+    else
+      Course.all
+    end
 
     if params[:course_category_id].present?
        #flash[:notice] = "Hobby #{params[:course_category_id].split(",")}"
        @courses = @courses.where( :course_category_id => params[:course_category_id]  )
      end
 
-     if params[:user_id].present?
-        #flash[:notice] = "Hobby #{params[:course_category_id].split(",")}"
-        @courses = @courses.where( :user_id => params[:user_id] )
-      end
+    if params[:user_id].present?
+      #flash[:notice] = "Hobby #{params[:course_category_id].split(",")}"
+      @courses = @courses.where( :user_id => params[:user_id] )
+    end
+
   end
 
   def show
