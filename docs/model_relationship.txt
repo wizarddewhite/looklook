@@ -1,0 +1,95 @@
+This is a brief explanation on the relationship between those tables.
+
+And it is required to update this document after changing the model and model
+relationships.
+
+1. Teacher <-> Course
+================================================================================
+
+When a user is a teacher, [s]he could open several courses.
+
+   User                               Course
+   +---------------------+            +---------------------+
+   |has_many :courses    |            |belongs_to :user     |
+   |                     |            |                     |
+   |                     |            |                     |
+   |                     |            |                     |
+   +---------------------+            +---------------------+
+
+                                      +---------------------+
+                                      |belongs_to :user     |
+                                      |                     |
+                                      |                     |
+                                      |                     |
+                                      |                     |
+                                      +---------------------+ 
+
+
+2. Student <-> Course
+================================================================================
+When a user is a student, [s]he could join several courses. This information
+is stored in course_user_relationship table.
+
+   User                                               Course
+   +---------------------+                            +---------------------+
+   |has_many             |   CourseUserRelationship   |has_many :students   |
+   |:participated_courses|                            |                     |
+   |                     |   +--------------------+   |                     |
+   |                     |   |belongs_to :user    |   |                     |
+   +---------------------+   |belongs_to :course  |   +---------------------+
+                             |                    |
+                             +--------------------+
+
+
+
+
+2. CourseCategory <-> Course 
+================================================================================
+
+One course belongs and only belongs to one category.
+
+
+   CourseCategory                     Course
+   +---------------------+            +---------------------+
+   |has_many :courses    |            |belongs_to :category |
+   |                     |            |                     |
+   |                     |            |                     |
+   |                     |            |                     |
+   +---------------------+            +---------------------+
+
+
+                                      +---------------------+
+                                      |belongs_to :category |
+                                      |                     |
+                                      |                     |
+                                      |                     |
+                                      |                     |
+                                      +---------------------+ 
+
+
+
+2. Course <-> Video 
+================================================================================
+
+One course could have one or several videos
+
+
+   Course                             Video
+   +---------------------+            +---------------------+
+   |has_many :videos     |            |belongs_to :course   |
+   |                     |            |                     |
+   |                     |            |                     |
+   |                     |            |                     |
+   +---------------------+            +---------------------+
+
+
+                                      +---------------------+
+                                      |belongs_to :course   |
+                                      |                     |
+                                      |                     |
+                                      |                     |
+                                      |                     |
+                                      +---------------------+ 
+
+
+
