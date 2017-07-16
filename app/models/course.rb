@@ -9,6 +9,7 @@ class Course < ApplicationRecord
   has_many :students, :through => :course_user_relationships, :source => :user
 
   belongs_to :course_category
+  has_many :videos
 
   scope :published, -> { where(is_hidden: false) }
 

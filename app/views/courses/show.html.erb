@@ -18,3 +18,36 @@
 <p> Price <%= @course.price %> </p>
 
 <p> <%= render_course_description(@course) %> </p>
+
+<% if current_user && @course.user == current_user %>
+  <%= link_to("Add a video", new_course_video_path(@course), class: "btn btn-primary pull-right")%>
+<% end %>
+
+
+<table class="table table-boldered">
+  <thread>
+  <tr>
+    <td>Title</td>
+    <td>Description</td>
+  </tr>
+  </thread>
+
+  <tbody>
+  <% @course.videos.each do |v| %>
+  <tr>
+    <td>
+      <%= link_to(v.title, course_video_path(@course, v)) %>
+    </td>
+    <td>
+      <%= v.description %>
+    </td>
+    <td>
+    <% if current_user && current_user == @course.user %>
+      <%= link_to("Edit", edit_course_video_path(@course, v)) %>
+      <%= link_to("Destroy", course_video_path(@course, v), :method => :delete, :data => { :confirm => "Are you sure?" }) %>
+    <% end %>
+    </td>
+  </tr>
+  <% end %>
+  </tbody>
+</table>
