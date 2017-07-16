@@ -1,0 +1,42 @@
+# User Table
+
+A user is created as default to be a normal account.
+
+Present: email, nickname, password
+
+# Course MCV
+
+## Table
+
+Present: Title, Description, Category, Price
+
+## Controller
+
+User can's access a hidden course. Only published course could be viewed.
+
+A teacher could access and edit a course published by him.
+
+Admin could publish and hide all courses, but don't have the right to modify
+courses.
+
+## View
+
+User, even not logged in, just see published courses on index page.
+
+# Video MCV
+
+## Table
+
+Present: Title, Description, hashid
+
+## Controller
+
+Admin could access the video to check the content.
+
+Any other user, who doesn't join the course, can't view the content.
+
+Only the course creator could modify the video.
+
+## View
+
+Any user could see the video list in a published course.
