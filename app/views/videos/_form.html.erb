@@ -1,22 +1,61 @@
 <%= simple_form_for [@course, @video] do |f| %>
 
-  <div class="group">
+  <div class="group1">
     <%= f.input :title %>
   </div>
 
-  <div class="group">
+  <div class="group1">
     <%= f.input :description %>
   </div>
 
-  <% if !@video.attachment.nil? %>
+  <% if !@video.hashid.nil? %>
   <div class="group">
-    <%= @video.attachment %>
+    <%= @video.hashid %>
   </div>
   <%= link_to("Remove Content", course_video_remove_path(@course, @video), :method => :delete, :data => { :confirm => "Are you sure?" }) %>
   <% else %>
   <div class="group">
-    <%= f.file_field :attachment %>
+    <%= f.input :hashid %>
   </div>
+
+    <script src="//fast.wistia.com/assets/external/api.js" async></script>
+    <p><link rel="stylesheet" href="//fast.wistia.com/assets/external/uploader.css" /></p>
+    <div id="wistia_uploader" style="height:360px;width:640px;"></div>
+
+    <script>
+    $("#wistia_uploader").hide();
+
+    $(".group1").keyup(function(){
+      console.log($("#video_title").val())
+      console.log($("#video_description").val())
+
+      if ($("#video_title").val() == "" || $("#video_description").val() == "") {
+        $("#wistia_uploader").hide();
+      } else {
+        $("#wistia_uploader").show();
+      }
+    });
+
+    window._wapiq = window._wapiq || [];
+    _wapiq.push(function(W) {
+      window.wistiaUploader = new W.Uploader({
+        accessToken: "57daac065b1543bc30042ecec4efc68c2781d14c8bb8b411742198b9e65eb89e",
+        dropIn: "wistia_uploader",
+        embedCodeOptions: {
+          playerColor: "54bbff"
+        },
+        projectId: "76htmwjmng"
+      });
+
+      wistiaUploader.bind('uploadsuccess', function(file, media) {
+        console.log('%cThe %cuploadsuccess %cevent fires when the upload completes successfully, and provides the %cMedia %cobject:', 'color: black;', 'color: #54bbff;', 'color: black;', 'color: #54bbff;', 'color: black;');
+        console.log(media);
+        console.log(media.id)
+        $("#video_hashid").val(media.id)
+        console.log("It's a good idea to save a reference to this video to your database. See \"Handling the Uploaded Video\" for details.");
+      });
+    }); </script>
+
   <% end %>
 
   <%= f.submit "Submit", data: { disable_with: "Submitting..." } %>
