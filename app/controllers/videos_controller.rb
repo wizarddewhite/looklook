@@ -63,7 +63,7 @@ class VideosController < ApplicationController
 
       redirect_to course_video_path(@course, @video)
     else
-      render :edit
+      redirect_to edit_course_video_path(@course, @video)
     end
   end
 
