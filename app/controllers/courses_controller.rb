@@ -35,7 +35,8 @@ class CoursesController < ApplicationController
 
       # hidden course could only be viewed by creator or admin
       if @course.is_hidden
-        if !current_user || !current_user.is_admin || @course.user != current_user
+        if !current_user || (!current_user.is_admin && @course.user != current_user)
+          #flash[:warning] = "#{params[:test].title}"
           flash[:warning] = "No such Course"
           redirect_to courses_path
         end
