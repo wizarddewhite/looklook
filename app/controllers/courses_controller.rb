@@ -109,6 +109,12 @@ class CoursesController < ApplicationController
   end
 
   def destroy
+    if @course.videos.count != 0
+      flash[:warning] = "Delete videos before remove the course!"
+      redirect_to courses_path
+      return
+    end
+
     if !@course.hashid.nil?
       response = Wistia.delete_project(@course.hashid)
 
