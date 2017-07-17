@@ -17,7 +17,9 @@ Rails.application.routes.draw do
       post :hide
     end
 
-    resources :videos
+    resources :videos do
+      delete :remove
+    end
   end
 
   namespace :account do

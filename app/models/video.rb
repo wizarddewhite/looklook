@@ -1,5 +1,7 @@
 class Video < ApplicationRecord
-  #validates :hashid, presence: true
+  validates :title, presence: true
+  validates :description, presence: true
 
   belongs_to :course
+
 end

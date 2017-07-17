@@ -8,6 +8,17 @@
     <%= f.input :description %>
   </div>
 
+  <% if !@video.attachment.nil? %>
+  <div class="group">
+    <%= @video.attachment %>
+  </div>
+  <%= link_to("Remove Content", course_video_remove_path(@course, @video), :method => :delete, :data => { :confirm => "Are you sure?" }) %>
+  <% else %>
+  <div class="group">
+    <%= f.file_field :attachment %>
+  </div>
+  <% end %>
+
   <%= f.submit "Submit", data: { disable_with: "Submitting..." } %>
 
 <% end %>

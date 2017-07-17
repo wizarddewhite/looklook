@@ -40,7 +40,28 @@ class VideosController < ApplicationController
     @video = Video.find_by(:id => params[:id])
 
     if @video.update(video_params)
-      redirect_to course_path(@course)
+      # Try to upload media after save successfully
+      # And make sure :attachment is present and @video.attachment is none
+      if params[:video][:attachment] != nil && @video.attachment.nil?
+        upload_io = params[:video][:attachment]
+        upload_io.original_filename
+
+        response = Wistia.post_video(upload_io.original_filename,
+                  params[:video][:attachment].tempfile.path)
+
+        if response.code != '200'
+          flash[:notice] = "Failed to upload file, please try again"
+          redirect_to course_video_path(@course, @video)
+        end
+
+        flash[:notice] = "upload file #{upload_io.original_filename}"
+        res = JSON.parse(response.body)
+        @video.attachment = upload_io.original_filename
+        @video.hashid = res["hashed_id"]
+        @video.save
+      end
+
+      redirect_to course_video_path(@course, @video)
     else
       render :edit
     end
@@ -53,10 +74,26 @@ class VideosController < ApplicationController
     redirect_to course_path(@course)
   end
 
+  def remove
+    @course = Course.find_by(:id => params[:course_id])
+    @video = Video.find_by(:id => params[:video_id])
+
+    response = Wistia.remove_video(@video.hashid)
+    if response.code != '200'
+      flash[:notice] = "Failed to remove file, please try again"
+      redirect_to course_video_path(@course, @video)
+    end
+
+    flash[:notice] = "#{@video.attachment} removed!"
+    @video.update_attribute(:attachment, nil)
+    @video.update_attribute(:hashid, nil)
+    redirect_to :back
+  end
+
 private
 
   def video_params
-    params.require(:video).permit(:title, :description, :hashid)
+    params.require(:video).permit(:title, :description)
   end
 
   def require_is_course_teacher
@@ -75,4 +112,11 @@ private
     end
   end
 
+  def video_params_check
+    if !params[:title] || !params[:description] || !params[:video][:attachment]
+      return false
+    else
+      return true
+    end
+  end
 end
