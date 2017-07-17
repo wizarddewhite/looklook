@@ -53,6 +53,18 @@ class CoursesController < ApplicationController
 
     if @course.save
       current_user.join!(@course)
+
+      response = Wistia.create_project(@course.title)
+      if response.code != '201'
+        flash[:warning] = "Course not synced to remote!"
+        redirect_to edit_course_path(@course)
+        return
+      end
+
+      res = JSON.parse(response.body)
+      @course.hashid = res["hashedId"]
+      @course.save
+
       redirect_to courses_path
     else
       render :new
@@ -64,6 +76,29 @@ class CoursesController < ApplicationController
 
   def update
     if @course.update(course_params)
+
+      if @course.hashid.nil?
+        response = Wistia.create_project(@course.title)
+
+        if response.code != '201'
+          flash[:warning] = "Course not synced to remote!"
+          redirect_to edit_course_path(@course)
+          return
+        end
+      else
+        response = Wistia.update_project(@course.hashid, @course.title)
+
+        if response.code != '200'
+          flash[:warning] = "Course not synced to remote!"
+          redirect_to edit_course_path(@course)
+          return
+        end
+      end
+
+      res = JSON.parse(response.body)
+      @course.hashid = res["hashedId"]
+      @course.save
+      #if respon
       redirect_to courses_path
     else
       render :edit
@@ -71,6 +106,16 @@ class CoursesController < ApplicationController
   end
 
   def destroy
+    if !@course.hashid.nil?
+      response = Wistia.delete_project(@course.hashid)
+
+      if response.code != '200'
+        flash[:warning] = "Failed to synced remote!"
+        redirect_to courses_path
+        return
+      end
+    end
+
     @course.destroy
     redirect_to courses_path
   end
@@ -126,4 +171,5 @@ private
       redirect_to root_path, alert: "You have no permission."
     end
   end
+
 end
