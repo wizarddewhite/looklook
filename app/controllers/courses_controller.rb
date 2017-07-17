@@ -55,6 +55,7 @@ class CoursesController < ApplicationController
       current_user.join!(@course)
 
       response = Wistia.create_project(@course.title)
+      puts "Project Create Response #{response.code}"
       if response.code != '201'
         flash[:warning] = "Course not synced to remote!"
         redirect_to edit_course_path(@course)
@@ -79,6 +80,7 @@ class CoursesController < ApplicationController
 
       if @course.hashid.nil?
         response = Wistia.create_project(@course.title)
+        puts "Project Create Response #{response.code}"
 
         if response.code != '201'
           flash[:warning] = "Course not synced to remote!"
@@ -87,6 +89,7 @@ class CoursesController < ApplicationController
         end
       else
         response = Wistia.update_project(@course.hashid, @course.title)
+        puts "Project Update Response #{response.code}"
 
         if response.code != '200'
           flash[:warning] = "Course not synced to remote!"
