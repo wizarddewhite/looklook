@@ -20,6 +20,7 @@ Rails.application.routes.draw do
     resources :videos do
       delete :remove
       post :upload
+      get :get_token
     end
   end
 

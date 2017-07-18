@@ -99,6 +99,10 @@ class VideosController < ApplicationController
     puts "Video hashid saved"
   end
 
+  def get_token
+    render :json => { :token => ENV["WISTIA_APP_PASSWORD"] }
+  end
+
 private
 
   def video_params

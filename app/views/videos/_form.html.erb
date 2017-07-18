@@ -23,7 +23,19 @@
     <script>
     var course_id = <%= @course.id %>
     var video_id = <%= @video.id %>
+    var project_id = "<%= @course.hashid %>"
     var url = "/courses/" + course_id + "/videos/" + video_id
+    var token = ""
+
+    // use ajax to record hashid into database
+    $.ajax({
+      url: url + "/get_token",
+      method: 'GET',
+      dataType: 'json',
+      success: function(data) {
+        token = data["token"];
+      }
+    })
 
     // hide the uploader in case no title or description
     if ($("#video_title").val() == "" || $("#video_description").val() == "") {
@@ -31,9 +43,8 @@
     }
 
     $(".group1").keyup(function(){
-      //console.log($("#video_title").val())
-      //console.log($("#video_description").val())
-      console.log(url)
+      console.log($("#video_title").val())
+      console.log($("#video_description").val())
 
       if ($("#video_title").val() == "" || $("#video_description").val() == "") {
         $("#wistia_uploader").hide();
@@ -45,12 +56,12 @@
     window._wapiq = window._wapiq || [];
     _wapiq.push(function(W) {
       window.wistiaUploader = new W.Uploader({
-        accessToken: "57daac065b1543bc30042ecec4efc68c2781d14c8bb8b411742198b9e65eb89e",
+        accessToken: token,
         dropIn: "wistia_uploader",
         embedCodeOptions: {
           playerColor: "54bbff"
         },
-        projectId: "76htmwjmng"
+        projectId: project_id
       });
 
       // upload starts
