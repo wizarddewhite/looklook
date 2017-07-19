@@ -2,7 +2,7 @@
 <h1> <%= @video.title %> </h1>
 <p> Description <%= @video.description %> </p>
 
-<% if !@video.attachment.nil? %>
+<% if !@video.hashid.nil? %>
 
 <script src="https://fast.wistia.com/embed/medias/07094x8xcx.jsonp" async></script>
 <script src="https://fast.wistia.com/assets/external/E-v1.js" async></script>

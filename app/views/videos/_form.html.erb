@@ -7,30 +7,33 @@
   <div class="group1">
     <%= f.input :description %>
   </div>
+  <%= f.submit "Submit", data: { disable_with: "Submitting..." } %>
+<% end %>
 
   <% if !@video.hashid.nil? %>
   <div class="group">
-    <%= @video.hashid %>
+    <p> Video Uploaded! </p>
+    <%= link_to("Remove Content", course_video_remove_path(@course, @video), :method => :delete, :data => { :confirm => "Are you sure?" }) %>
   </div>
-  <%= link_to("Remove Content", course_video_remove_path(@course, @video), :method => :delete, :data => { :confirm => "Are you sure?" }) %>
   <% else %>
-  <div class="group">
-    <%= f.input :hashid %>
-  </div>
-
     <script src="//fast.wistia.com/assets/external/api.js" async></script>
     <p><link rel="stylesheet" href="//fast.wistia.com/assets/external/uploader.css" /></p>
     <div id="wistia_uploader" style="height:360px;width:640px;"></div>
 
     <script>
+    var course_id = <%= @course.id %>
+    var video_id = <%= @video.id %>
+    var url = "/courses/" + course_id + "/videos/" + video_id
+
     // hide the uploader in case no title or description
     if ($("#video_title").val() == "" || $("#video_description").val() == "") {
       $("#wistia_uploader").hide();
     }
 
     $(".group1").keyup(function(){
-      console.log($("#video_title").val())
-      console.log($("#video_description").val())
+      //console.log($("#video_title").val())
+      //console.log($("#video_description").val())
+      console.log(url)
 
       if ($("#video_title").val() == "" || $("#video_description").val() == "") {
         $("#wistia_uploader").hide();
@@ -50,17 +53,29 @@
         projectId: "76htmwjmng"
       });
 
+      // upload starts
+      wistiaUploader.bind('uploadstart', function(file) {
+        // disable submit during uploading
+        $(':input[type="submit"]').prop('disabled', true);
+        // disable changing title and description
+        $("#video_title").attr("disabled","disabled");
+        $("#video_description").attr("disabled","disabled");
+      });
+      // upload succeed
       wistiaUploader.bind('uploadsuccess', function(file, media) {
-        console.log('%cThe %cuploadsuccess %cevent fires when the upload completes successfully, and provides the %cMedia %cobject:', 'color: black;', 'color: #54bbff;', 'color: black;', 'color: #54bbff;', 'color: black;');
-        console.log(media);
-        console.log(media.id)
-        $("#video_hashid").val(media.id)
-        console.log("It's a good idea to save a reference to this video to your database. See \"Handling the Uploaded Video\" for details.");
+        // enable submit after upload done
+        $(':input[type="submit"]').prop('disabled', false);
+
+        // use ajax to record hashid into database
+        $.ajax({
+          url: url + "/upload?hashid=" + media.id,
+          method: 'POST',
+          dataType: 'json'
+        })
+        // enable changing title and description
+        $("#video_title").removeAttr("disabled");
+        $("#video_description").removeAttr("disabled");
       });
     }); </script>
 
   <% end %>
-
-  <%= f.submit "Submit", data: { disable_with: "Submitting..." } %>
-
-<% end %>

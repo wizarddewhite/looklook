@@ -19,6 +19,7 @@ Rails.application.routes.draw do
 
     resources :videos do
       delete :remove
+      post :upload
     end
   end
 

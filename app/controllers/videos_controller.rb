@@ -24,6 +24,7 @@ class VideosController < ApplicationController
     @video.course = @course
 
     if @video.save
+      flash[:notice] = "Video '#{@video.title}' create, use 'Edit' to upload it"
       redirect_to course_path(@course)
     else
       render :new
@@ -88,6 +89,14 @@ class VideosController < ApplicationController
     @video.update_attribute(:attachment, nil)
     @video.update_attribute(:hashid, nil)
     redirect_to :back
+  end
+
+  def upload
+    @course = Course.find_by(:id => params[:course_id])
+    @video = Video.find_by(:id => params[:video_id])
+    @video.update_attribute(:hashid, params[:hashid])
+    @video.save
+    puts "Video hashid saved"
   end
 
 private
