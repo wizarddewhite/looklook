@@ -100,7 +100,13 @@ class VideosController < ApplicationController
   end
 
   def get_token
-    render :json => { :token => ENV["WISTIA_APP_PASSWORD"] }
+    response = Wistia.get_upload_token()
+    if response.code != '200'
+      render :json => { :token => "INVALIDTOKEN" }
+    else
+      res = JSON.parse(response.body)
+      render :json => { :token => res["id"] }
+    end
   end
 
 private
