@@ -23,7 +23,10 @@
     <div id="wistia_uploader" style="height:360px;width:640px;"></div>
 
     <script>
-    $("#wistia_uploader").hide();
+    // hide the uploader in case no title or description
+    if ($("#video_title").val() == "" || $("#video_description").val() == "") {
+      $("#wistia_uploader").hide();
+    }
 
     $(".group1").keyup(function(){
       console.log($("#video_title").val())
