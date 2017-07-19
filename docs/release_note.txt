@@ -1,0 +1,4 @@
+v1.1: basic course, category, video structure
+v1.2: upload video to wistia
+v1.3: upload video with secure frontend
+      each course will create a project in wistia
