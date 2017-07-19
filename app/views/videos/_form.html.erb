@@ -12,8 +12,9 @@
 
   <% if !@video.hashid.nil? %>
   <div class="group">
-    <p> Video Uploaded! </p>
-    <%= link_to("Remove Content", course_video_remove_path(@course, @video), :method => :delete, :data => { :confirm => "Are you sure?" }) %>
+    Video Uploaded!
+    <%= link_to("Remove Video", course_video_remove_path(@course, @video), :method => :delete, :data => { :confirm => "Are you sure?" }) %>
+     before update.
   </div>
   <% else %>
     <script src="//fast.wistia.com/assets/external/api.js" async></script>
