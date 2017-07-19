@@ -22,11 +22,13 @@
     <div id="wistia_uploader" style="height:360px;width:640px;"></div>
 
     <script>
+
     var course_id = <%= @course.id %>
     var video_id = <%= @video.id %>
     var project_id = "<%= @course.hashid %>"
     var url = "/courses/" + course_id + "/videos/" + video_id
-    var token = ""
+
+    let token = ""
 
     // use ajax to record hashid into database
     $.ajax({
@@ -56,8 +58,9 @@
 
     window._wapiq = window._wapiq || [];
     _wapiq.push(function(W) {
+
       window.wistiaUploader = new W.Uploader({
-        accessToken: token,
+        accessToken: "placeholder",
         dropIn: "wistia_uploader",
         embedCodeOptions: {
           playerColor: "54bbff"
@@ -72,6 +75,8 @@
         // disable changing title and description
         $("#video_title").attr("disabled","disabled");
         $("#video_description").attr("disabled","disabled");
+        // set the real token here, since ajax runs after Uploader initializtion
+        wistiaUploader.setAccessToken(token)
       });
       // upload succeed
       wistiaUploader.bind('uploadsuccess', function(file, media) {
@@ -88,6 +93,8 @@
         $("#video_title").removeAttr("disabled");
         $("#video_description").removeAttr("disabled");
       });
-    }); </script>
+    });
+
+    </script>
 
   <% end %>
