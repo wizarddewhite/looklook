@@ -7,7 +7,7 @@
       <tr>
         <th> # </th>
         <th> Title </th>
-        <th> Description </th>
+        <th> Students </th>
         <th> Last Update </th>
       </tr>
     </thead>
@@ -17,7 +17,7 @@
         <tr>
           <td> # </td>
           <td> <%= link_to(course.title, course_path(course)) %> </td>
-          <td> <%= course.description %> </td>
+          <td> <%= course.students.count %> </td>
           <td> <%= course.updated_at %> </td>
         </tr>
       <% end %>
