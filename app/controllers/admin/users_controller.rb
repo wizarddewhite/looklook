@@ -9,6 +9,10 @@ class Admin::UsersController < ApplicationController
       User.all.name_alphabetical
     when 'username_rev'
       User.all.name_alphabetical_rev
+    when 'created'
+      User.all.order("created_at ASC")
+    when 'created_rev'
+      User.all.order("created_at DESC")
     else
       User.all
     end

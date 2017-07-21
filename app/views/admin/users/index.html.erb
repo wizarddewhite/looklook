@@ -10,7 +10,10 @@
             <%= link_to("按照用户名倒排", admin_users_path(:order => "username_rev")) %>
         </li>
         <li>
-          <%= link_to("按照创建时间排序", admin_users_path ) %>
+          <%= link_to("按照创建时间排序", admin_users_path(:order => "created") ) %>
+        </li>
+        <li>
+          <%= link_to("按照创建时间倒排", admin_users_path(:order => "created_rev") ) %>
         </li>
     </ul>
 </div>
