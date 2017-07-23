@@ -136,7 +136,7 @@ private
 
   def require_is_course_teacher
     course = Course.find_by(:id => params[:course_id])
-    if !params[:course_id] || course.user != current_user
+    if !same_teacher!(course)
       flash[:warning] = "You are not permitted."
       redirect_to root_path
     end

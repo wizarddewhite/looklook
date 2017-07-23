@@ -15,10 +15,17 @@ class ApplicationController < ActionController::Base
   end
 
   def require_is_teacher
-    if current_user && !current_user.is_teacher?
+    if !current_user.is_teacher?
       flash[:warning] = "You are not teacher"
       redirect_to root_path
     end
   end
 
+  def same_teacher!(course)
+    if current_user != course.user
+      return false
+    else
+      return true
+    end
+  end
 end
