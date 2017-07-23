@@ -59,12 +59,9 @@
     window.onbeforeunload = function() {
       // use ajax to record hashid into database
       $.ajax({
-        url: url + "/get_token",
-        method: 'GET',
+        url: url + "/release_editing",
+        method: 'POST',
         dataType: 'json',
-        success: function(data) {
-          token = data["token"];
-        }
       });
       console.log("beforeUnload");
       //return "adadf";

@@ -21,6 +21,7 @@ Rails.application.routes.draw do
       delete :remove
       post :upload
       get :get_token
+      post :release_editing
     end
   end
 

@@ -34,6 +34,15 @@ class VideosController < ApplicationController
   def edit
     @course = Course.find_by(:id => params[:course_id])
     @video = Video.find_by(:id => params[:id])
+    # mark video is editing to prevent multiple editing
+    if @video.is_editing == false
+      @video.is_editing = true
+      @video.save
+    else
+      flash[:warning] = "Someone is editing..."
+      redirect_to course_path(@course)
+      return
+    end
   end
 
   def update
@@ -62,6 +71,9 @@ class VideosController < ApplicationController
         @video.save
       end
 
+      # mark editing is done
+      @video.is_editing = false
+      @video.save
       redirect_to course_video_path(@course, @video)
     else
       redirect_to edit_course_video_path(@course, @video)
@@ -107,6 +119,13 @@ class VideosController < ApplicationController
       res = JSON.parse(response.body)
       render :json => { :token => res["id"] }
     end
+  end
+
+  def release_editing
+    @course = Course.find_by(:id => params[:course_id])
+    @video = Video.find_by(:id => params[:video_id])
+    @video.is_editing = false
+    @video.save
   end
 
 private
