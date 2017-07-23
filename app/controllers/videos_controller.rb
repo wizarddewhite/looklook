@@ -83,6 +83,9 @@ class VideosController < ApplicationController
   def destroy
     @course = Course.find_by(:id => params[:course_id])
     @video = Video.find_by(:id => params[:id])
+    if @video.hashid
+      response = Wistia.remove_video(@video.hashid)
+    end
     @video.destroy
     redirect_to course_path(@course)
   end
@@ -95,6 +98,7 @@ class VideosController < ApplicationController
     if response.code != '200'
       flash[:notice] = "Failed to remove file, please try again"
       redirect_to course_video_path(@course, @video)
+      return
     end
 
     flash[:notice] = "#{@video.attachment} removed!"
