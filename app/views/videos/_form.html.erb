@@ -65,6 +65,10 @@
         embedCodeOptions: {
           playerColor: "54bbff"
         },
+        beforeUpload: function() {
+          // set the real token here, since ajax runs after Uploader initializtion
+          wistiaUploader.setAccessToken(token);
+        },
         projectId: project_id
       });
 
@@ -75,8 +79,6 @@
         // disable changing title and description
         $("#video_title").attr("disabled","disabled");
         $("#video_description").attr("disabled","disabled");
-        // set the real token here, since ajax runs after Uploader initializtion
-        wistiaUploader.setAccessToken(token)
       });
       // upload succeed
       wistiaUploader.bind('uploadsuccess', function(file, media) {
