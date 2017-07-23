@@ -66,7 +66,7 @@ class CoursesController < ApplicationController
       @course.hashid = res["hashedId"]
       @course.save
 
-      redirect_to courses_path
+      redirect_to course_path(@course)
     else
       render :new
     end
