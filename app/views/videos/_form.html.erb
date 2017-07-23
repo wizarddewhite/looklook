@@ -56,6 +56,20 @@
       }
     });
 
+    window.onbeforeunload = function() {
+      // use ajax to record hashid into database
+      $.ajax({
+        url: url + "/get_token",
+        method: 'GET',
+        dataType: 'json',
+        success: function(data) {
+          token = data["token"];
+        }
+      });
+      console.log("beforeUnload");
+      //return "adadf";
+    };
+
     window._wapiq = window._wapiq || [];
     _wapiq.push(function(W) {
 
@@ -69,6 +83,7 @@
           // set the real token here, since ajax runs after Uploader initializtion
           wistiaUploader.setAccessToken(token);
         },
+        onBeforeUnload: false,
         projectId: project_id
       });
 
@@ -94,6 +109,9 @@
         // enable changing title and description
         $("#video_title").removeAttr("disabled");
         $("#video_description").removeAttr("disabled");
+      });
+      wistiaUploader.bind('uploadcancelled', function(file) {
+        console.log("We are no longer uploading " + file.name);
       });
     });
 
