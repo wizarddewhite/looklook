@@ -9,7 +9,7 @@
 
 <% if !@video.hashid.nil? %>
 
-<script src="https://fast.wistia.com/embed/medias/07094x8xcx.jsonp" async></script>
+<script src="https://fast.wistia.com/embed/medias/<%= @video.hashid %>.jsonp" async></script>
 <script src="https://fast.wistia.com/assets/external/E-v1.js" async></script>
 <div class="wistia_responsive_padding" style="padding:62.5% 0 0 0;position:relative;">
   <div class="wistia_responsive_wrapper" style="height:100%;left:0;position:absolute;top:0;width:100%;">
