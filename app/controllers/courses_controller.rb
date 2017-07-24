@@ -102,7 +102,7 @@ class CoursesController < ApplicationController
       @course.hashid = res["hashedId"]
       @course.save
       #if respon
-      redirect_to courses_path
+      redirect_to course_path(@course)
     else
       render :edit
     end
