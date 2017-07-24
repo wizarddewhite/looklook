@@ -27,6 +27,7 @@
     <tr>
       <td>Price</td>
       <td>Quantity</td>
+      <td>Share the Link to User</td>
     </tr>
     </thread>
     <tbody>
@@ -37,6 +38,9 @@
       </td>
       <td>
         <%= c.quantity %>
+      </td>
+      <td>
+        <a href="<%= course_coupon_url(@course, c.token) %>">Link</a>
       </td>
       <td>
         <%= link_to("Destroy", course_coupon_path(@course, c), :method => :delete, :data => { :confirm => "Are you sure?" }) %>
