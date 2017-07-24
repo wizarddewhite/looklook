@@ -23,6 +23,8 @@ Rails.application.routes.draw do
       get :get_token
       post :release_editing
     end
+
+    resources :coupons
   end
 
   namespace :account do

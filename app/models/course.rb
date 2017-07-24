@@ -11,6 +11,8 @@ class Course < ApplicationRecord
   belongs_to :course_category
   has_many :videos
 
+  has_many :coupons
+
   scope :published, -> { where(is_hidden: false) }
 
   def publish!

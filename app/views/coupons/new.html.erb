@@ -1,0 +1,14 @@
+<h1> Add a Coupon </h1>
+<%= simple_form_for [@course, @coupon] do |f| %>
+
+  <div class="group1">
+    <%= f.input :price %>
+  </div>
+
+  <div class="group1">
+    <%= f.input :quantity %>
+  </div>
+
+  <%= f.submit "Submit", data: { disable_with: "Submitting..." } %>
+
+<% end %>

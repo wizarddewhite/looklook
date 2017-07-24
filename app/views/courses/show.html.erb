@@ -20,6 +20,36 @@
 <p> <%= render_course_description(@course) %> </p>
 
 <% if current_user && @course.user == current_user %>
+<div>
+    <%= link_to("Add Coupon", new_course_coupon_path(@course), class: "btn btn-primary pull-right")%>
+  <table class="table table-boldered">
+    <thread>
+    <tr>
+      <td>Price</td>
+      <td>Quantity</td>
+    </tr>
+    </thread>
+    <tbody>
+    <% @course.coupons.each do |c| %>
+    <tr>
+      <td>
+        <%= c.price %>
+      </td>
+      <td>
+        <%= c.quantity %>
+      </td>
+      <td>
+        <%= link_to("Destroy", course_coupon_path(@course, c), :method => :delete, :data => { :confirm => "Are you sure?" }) %>
+      </td>
+    </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>
+<% end %>
+
+<div>
+<% if current_user && @course.user == current_user %>
   <%= link_to("Add a video", new_course_video_path(@course), class: "btn btn-primary pull-right")%>
 <% end %>
 
@@ -51,3 +81,4 @@
   <% end %>
   </tbody>
 </table>
+</div>
