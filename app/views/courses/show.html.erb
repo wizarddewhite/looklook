@@ -2,10 +2,10 @@
 <span class="pull-right">
   <% if current_user && current_user.has_joined_course?(@course) %>
     <label class="label label-success"> 课程学员 </label>
-    <%= link_to("Quit Course", quit_course_path(@course), method: :post, class: "btn btn-default") %>
+    <%#= link_to("Quit Course", quit_course_path(@course), method: :post, class: "btn btn-default") %>
   <% else %>
     <label class="label label-warning"> 未参加课程 </label>
-    <%= link_to("Join Course", join_course_path(@course), method: :post, class: "btn btn-default") %>
+    <%#= link_to("Join Course", join_course_path(@course), method: :post, class: "btn btn-default") %>
   <% end %>
 </span>
 

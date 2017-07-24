@@ -10,8 +10,8 @@ Rails.application.routes.draw do
 
   resources :courses do
     member do
-      post :join
-      post :quit
+      #post :join
+      #post :quit
 
       post :publish
       post :hide
