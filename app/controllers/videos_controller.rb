@@ -1,25 +1,19 @@
 class VideosController < ApplicationController
-  before_action :authenticate_user! , only: [:new, :edit, :create, :update, :destroy, :show]
+  before_action :authenticate_user! , only: [:new, :create, :show, :edit, :update, :destroy, :remove, :upload, :get_token]
+  before_action :find_course, only: [:index, :new, :create, :show, :edit, :update, :destroy, :remove, :upload]
+  before_action :find_video, only: [:show, :edit, :update, :destroy]
   before_action :require_is_course_teacher, only: [:new, :edit, :create, :update, :destroy]
   before_action :require_is_join_course, only: [:show]
 
   def index
-    @course = Course.find_by(:id => params[:course_id])
     redirect_to course_path(@course)
   end
 
-  def show
-    @course = Course.find_by(:id => params[:course_id])
-    @video = Video.find_by(:id => params[:id])
-  end
-
   def new
-    @course = Course.find_by(:id => params[:course_id])
     @video = Video.new
   end
 
   def create
-    @course = Course.find_by(:id => params[:course_id])
     @video = Video.new(video_params)
     @video.course = @course
 
@@ -31,9 +25,10 @@ class VideosController < ApplicationController
     end
   end
 
+  def show
+  end
+
   def edit
-    @course = Course.find_by(:id => params[:course_id])
-    @video = Video.find_by(:id => params[:id])
     # mark video is editing to prevent multiple editing
     if @video.is_editing == false
       @video.is_editing = true
@@ -46,9 +41,6 @@ class VideosController < ApplicationController
   end
 
   def update
-    @course = Course.find_by(:id => params[:course_id])
-    @video = Video.find_by(:id => params[:id])
-
     if @video.update(video_params)
       # Try to upload media after save successfully
       # And make sure :attachment is present and @video.attachment is none
@@ -81,8 +73,6 @@ class VideosController < ApplicationController
   end
 
   def destroy
-    @course = Course.find_by(:id => params[:course_id])
-    @video = Video.find_by(:id => params[:id])
     if @video.hashid
       response = Wistia.remove_video(@video.hashid)
     end
@@ -91,7 +81,6 @@ class VideosController < ApplicationController
   end
 
   def remove
-    @course = Course.find_by(:id => params[:course_id])
     @video = Video.find_by(:id => params[:video_id])
 
     response = Wistia.remove_video(@video.hashid)
@@ -108,7 +97,6 @@ class VideosController < ApplicationController
   end
 
   def upload
-    @course = Course.find_by(:id => params[:course_id])
     @video = Video.find_by(:id => params[:video_id])
     @video.update_attribute(:hashid, params[:hashid])
     @video.save
@@ -136,6 +124,22 @@ private
 
   def video_params
     params.require(:video).permit(:title, :description, :hashid)
+  end
+
+  def find_course
+    @course = Course.find_by(:id => params[:course_id])
+    if !@course
+      flash[:warning] = "No such Course"
+      redirect_to courses_path
+    end
+  end
+
+  def find_video
+    @video = Video.find_by(:id => params[:id])
+    if !@video
+      flash[:warning] = "No such video"
+      redirect_to course_path(@course)
+    end
   end
 
   def require_is_course_teacher
