@@ -3,7 +3,7 @@ class VideosController < ApplicationController
   before_action :find_course, only: [:index, :new, :create, :show, :edit, :update, :destroy, :remove, :upload]
   before_action :find_video, only: [:show, :edit, :update, :destroy]
   before_action :require_same_teacher_or_admin, only: [:new, :create, :edit, :update, :destroy, :remove, :upload]
-  before_action :require_is_published_course, only: [:show]
+  before_action :require_published_course_or_teacher_admin, only: [:show]
   before_action :require_is_join_course, only: [:show]
 
   def index

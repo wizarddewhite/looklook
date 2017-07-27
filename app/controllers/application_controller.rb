@@ -30,8 +30,8 @@ class ApplicationController < ActionController::Base
   end
 
   def require_same_teacher_or_admin
-    if !same_teacher!(@course) && !current_user.is_admin
-      redirect_to root_path, alert: "You have no permission."
+    if !current_user || (!same_teacher!(@course) && !current_user.is_admin)
+      redirect_to root_path, alert: "You have no permission or course doesn't exist."
     end
   end
 
@@ -50,10 +50,9 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def require_is_published_course
+  def require_published_course_or_teacher_admin
     if @course.is_hidden
-      flash[:warning] = "No such course."
-      redirect_to courses_path
+      require_same_teacher_or_admin()
     end
   end
 
