@@ -2,7 +2,7 @@ class VideosController < ApplicationController
   before_action :authenticate_user! , only: [:new, :create, :show, :edit, :update, :destroy, :remove, :upload, :get_token]
   before_action :find_course, only: [:index, :new, :create, :show, :edit, :update, :destroy, :remove, :upload]
   before_action :find_video, only: [:show, :edit, :update, :destroy]
-  before_action :require_is_course_teacher, only: [:new, :edit, :create, :update, :destroy]
+  before_action :require_is_course_teacher_or_admin, only: [:new, :create, :edit, :update, :destroy, :remove, :upload]
   before_action :require_is_join_course, only: [:show]
 
   def index
@@ -142,16 +142,14 @@ private
     end
   end
 
-  def require_is_course_teacher
-    course = Course.find_by(:id => params[:course_id])
-    if !same_teacher!(course)
+  def require_is_course_teacher_or_admin
+    if !same_teacher!(@course) && !current_user.is_admin
       flash[:warning] = "You are not permitted."
       redirect_to root_path
     end
   end
 
   def require_is_join_course
-    @course = Course.find_by(:id => params[:course_id])
     if !current_user.has_joined_course?(@course)
       flash[:warning] = "You could view the material after join."
       redirect_to :back
