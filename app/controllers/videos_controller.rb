@@ -164,11 +164,4 @@ private
     end
   end
 
-  def video_params_check
-    if !params[:title] || !params[:description] || !params[:video][:attachment]
-      return false
-    else
-      return true
-    end
-  end
 end
