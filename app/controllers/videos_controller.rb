@@ -2,8 +2,8 @@ class VideosController < ApplicationController
   before_action :authenticate_user! , only: [:new, :create, :show, :edit, :update, :destroy, :remove, :upload, :get_token]
   before_action :find_course, only: [:index, :new, :create, :show, :edit, :update, :destroy, :remove, :upload]
   before_action :find_video, only: [:show, :edit, :update, :destroy]
-  before_action :require_is_course_teacher_or_admin, only: [:new, :create, :edit, :update, :destroy, :remove, :upload]
-  before_action :require_is_public_course, only: [:show]
+  before_action :require_same_teacher_or_admin, only: [:new, :create, :edit, :update, :destroy, :remove, :upload]
+  before_action :require_is_published_course, only: [:show]
   before_action :require_is_join_course, only: [:show]
 
   def index
@@ -127,14 +127,6 @@ private
     params.require(:video).permit(:title, :description, :hashid)
   end
 
-  def find_course
-    @course = Course.find_by(:id => params[:course_id])
-    if !@course
-      flash[:warning] = "No such Course"
-      redirect_to courses_path
-    end
-  end
-
   def find_video
     @video = Video.find_by(:id => params[:id])
     if !@video
@@ -143,25 +135,5 @@ private
     end
   end
 
-  def require_is_course_teacher_or_admin
-    if !same_teacher!(@course) && !current_user.is_admin
-      flash[:warning] = "You are not permitted."
-      redirect_to root_path
-    end
-  end
-
-  def require_is_join_course
-    if !current_user.has_joined_course?(@course)
-      flash[:warning] = "You could view the material after join."
-      redirect_to course_path(@course)
-    end
-  end
-
-  def require_is_public_course
-    if @course.is_hidden
-      flash[:warning] = "No such course."
-      redirect_to courses_path
-    end
-  end
 
 end
