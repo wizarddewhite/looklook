@@ -1,7 +1,12 @@
 class CoursesController < ApplicationController
-  before_action :authenticate_user! , only: [:new, :edit, :create, :update, :destroy, :join, :quit, :publish, :hide]
-  before_action :require_is_teacher, only: [:new, :edit, :create, :update, :destroy, :publish, :hide]
-  before_action :find_course_and_check_permission, only: [:edit, :update, :destroy]
+  # only :index and :show is public
+  before_action :authenticate_user! , only: [:new, :create, :edit, :update, :destroy, :join, :quit, :publish, :hide]
+  # get the correct course before accessing
+  before_action :find_course, only: [:show, :edit, :update, :destroy, :join, :quit, :publish, :hide]
+  # only teacher could create and modify
+  before_action :require_is_teacher_or_admin, only: [:new, :create]
+  # same teacher or admin could update and destroy
+  before_action :require_same_teacher_or_admin, only: [:edit, :update, :destroy, :publish, :hide]
 
   def index
 
@@ -31,8 +36,6 @@ class CoursesController < ApplicationController
   end
 
   def show
-      @course = Course.find(params[:id])
-
       # hidden course could only be viewed by creator or admin
       if @course.is_hidden
         if !current_user || (!current_user.is_admin && @course.user != current_user)
@@ -130,8 +133,6 @@ class CoursesController < ApplicationController
   end
 
   def join
-    @course = Course.find(params[:id])
-
     if !current_user.has_joined_course?(@course)
       current_user.join!(@course)
       flash[:notice] = "加入本课程成功！"
@@ -143,8 +144,6 @@ class CoursesController < ApplicationController
   end
 
   def quit
-    @course = Course.find(params[:id])
-
     if current_user.has_joined_course?(@course)
       current_user.quit!(@course)
       flash[:notice] = "已退出本课程！"
@@ -156,13 +155,11 @@ class CoursesController < ApplicationController
   end
 
   def publish
-    @course = Course.find(params[:id])
     @course.publish!
     redirect_to :back
   end
 
   def hide
-    @course = Course.find(params[:id])
     @course.hide!
     redirect_to :back
   end
@@ -173,10 +170,11 @@ private
     params.require(:course).permit(:title, :description, :price, :course_category_id, :is_hidden)
   end
 
-  def find_course_and_check_permission
-    @course = Course.find(params[:id])
-    if !same_teacher!(@course)
-      redirect_to root_path, alert: "You have no permission."
+  def find_course
+    @course = Course.find_by(:id => params[:id])
+    if !@course
+      flash[:warning] = "No such Course"
+      redirect_to courses_path
     end
   end
 

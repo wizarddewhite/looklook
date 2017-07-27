@@ -14,8 +14,8 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def require_is_teacher
-    if !current_user.is_teacher?
+  def require_is_teacher_or_admin
+    if !current_user.is_teacher && !current_user.is_admin
       flash[:warning] = "You are not teacher"
       redirect_to root_path
     end
@@ -28,4 +28,11 @@ class ApplicationController < ActionController::Base
       return true
     end
   end
+
+  def require_same_teacher_or_admin
+    if !same_teacher!(@course) && !current_user.is_admin
+      redirect_to root_path, alert: "You have no permission."
+    end
+  end
+
 end
