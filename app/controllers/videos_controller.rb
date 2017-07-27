@@ -3,6 +3,7 @@ class VideosController < ApplicationController
   before_action :find_course, only: [:index, :new, :create, :show, :edit, :update, :destroy, :remove, :upload]
   before_action :find_video, only: [:show, :edit, :update, :destroy]
   before_action :require_is_course_teacher_or_admin, only: [:new, :create, :edit, :update, :destroy, :remove, :upload]
+  before_action :require_is_public_course, only: [:show]
   before_action :require_is_join_course, only: [:show]
 
   def index
@@ -152,7 +153,14 @@ private
   def require_is_join_course
     if !current_user.has_joined_course?(@course)
       flash[:warning] = "You could view the material after join."
-      redirect_to :back
+      redirect_to course_path(@course)
+    end
+  end
+
+  def require_is_public_course
+    if @course.is_hidden
+      flash[:warning] = "No such course."
+      redirect_to courses_path
     end
   end
 
