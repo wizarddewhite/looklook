@@ -5,6 +5,7 @@ Rails.application.routes.draw do
 
   namespace :admin do
     resources :users
+    resources :fl_categories
     resources :course_categories
   end
 
