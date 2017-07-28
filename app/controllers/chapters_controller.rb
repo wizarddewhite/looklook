@@ -3,6 +3,8 @@ class ChaptersController < ApplicationController
   before_action :find_course, only: [:new, :create, :edit, :update, :show, :destroy]
   before_action :find_video, only: [:new, :create, :edit, :update, :show, :destroy]
   before_action :require_same_teacher_or_admin, only: [:new, :create, :edit, :update, :destroy, :remove, :upload]
+  before_action :require_published_course_or_teacher_admin, only: [:show]
+  before_action :require_is_join_course, only: [:show]
 
   def new
     @chapter = Chapter.new
