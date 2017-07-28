@@ -1,0 +1,13 @@
+<%= simple_form_for [@course, @video, @chapter] do |f| %>
+
+  <div class="group1">
+    <%= f.input :title %>
+  </div>
+
+  <div class="group1">
+    <%= f.input :start_second %>
+  </div>
+
+  <%= f.submit "Submit", data: { disable_with: "Submitting..." } %>
+
+<% end %>

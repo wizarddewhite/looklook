@@ -3,5 +3,6 @@ class Video < ApplicationRecord
   validates :description, presence: true
 
   belongs_to :course
+  has_many :chapters
 
 end

@@ -22,6 +22,8 @@ Rails.application.routes.draw do
       post :upload
       get :get_token
       post :release_editing
+
+      resources :chapters
     end
 
     resources :coupons

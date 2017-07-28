@@ -22,7 +22,7 @@ When a user is a teacher, [s]he could open several courses.
                                       |                     |
                                       |                     |
                                       |                     |
-                                      +---------------------+ 
+                                      +---------------------+
 
 
 2. Student <-> Course
@@ -43,7 +43,7 @@ is stored in course_user_relationship table.
 
 
 
-2. CourseCategory <-> Course 
+2. CourseCategory <-> Course
 ================================================================================
 
 One course belongs and only belongs to one category.
@@ -64,11 +64,11 @@ One course belongs and only belongs to one category.
                                       |                     |
                                       |                     |
                                       |                     |
-                                      +---------------------+ 
+                                      +---------------------+
 
 
 
-2. Course <-> Video 
+2. Course <-> Video
 ================================================================================
 
 One course could have one or several videos
@@ -89,10 +89,10 @@ One course could have one or several videos
                                       |                     |
                                       |                     |
                                       |                     |
-                                      +---------------------+ 
+                                      +---------------------+
 
 
-3. Course <-> Coupon 
+3. Course <-> Coupon
 ================================================================================
 
 One course could have one or several coupons
@@ -113,10 +113,10 @@ One course could have one or several coupons
                                       |                     |
                                       |                     |
                                       |                     |
-                                      +---------------------+ 
+                                      +---------------------+
 
 
-4. User <-> Coupon 
+4. User <-> Coupon ; not implemented
 ================================================================================
 
 One user could have one or several coupons
@@ -132,6 +132,27 @@ One user could have one or several coupons
                              +--------------------+
 
 
+5. Video <-> Chapter
+================================================================================
 
+One video could have one or several chapters
+
+
+   Video                              Chapter
+   +---------------------+            +---------------------+
+   |has_many :chapters   |            |belongs_to :video    |
+   |                     |            |                     |
+   |                     |            |                     |
+   |                     |            |                     |
+   +---------------------+            +---------------------+
+
+
+                                      +---------------------+
+                                      |belongs_to :video    |
+                                      |                     |
+                                      |                     |
+                                      |                     |
+                                      |                     |
+                                      +---------------------+
 
 

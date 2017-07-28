@@ -10,7 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170728001132) do
+ActiveRecord::Schema.define(version: 20170728034524) do
+
+  create_table "chapters", force: :cascade do |t|
+    t.integer  "start_second"
+    t.integer  "video_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.string   "title"
+  end
 
   create_table "coupons", force: :cascade do |t|
     t.integer  "price"

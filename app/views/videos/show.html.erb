@@ -2,21 +2,57 @@
   <%= link_to("Back to course", course_path(@course), :class => "btn btn-default" ) %>
 </div>
 
+<% if current_user && @course.user == current_user %>
+<div>
+  <%= link_to("Add a chapter", new_course_video_chapter_path(@course, @video), class: "btn btn-primary pull-right")%>
 
+<table class="table table-boldered">
+  <thread>
+  <tr>
+    <td>Title</td>
+    <td>Start Second</td>
+  </tr>
+  </thread>
+
+  <tbody>
+  <% @video.chapters.each do |ch| %>
+  <tr>
+    <td>
+      <%= ch.title %>
+    </td>
+    <td>
+      <%= ch.start_second %>
+    </td>
+    <td>
+      <%= link_to("Edit", edit_course_video_chapter_path(@course, @video, ch)) %>
+      <%= link_to("Destroy", course_video_chapter_path(@course, @video, ch), :method => :delete, :data => { :confirm => "Are you sure?" }) %>
+    </td>
+  </tr>
+  <% end %>
+  </tbody>
+</table>
+</div>
+<% end %>
+
+
+<div class="container course-block" id="show-content">
 <div class="group">
 <h1> <%= @video.title %> </h1>
 <p> Description <%= @video.description %> </p>
 
 <% if !@video.hashid.nil? %>
-
 <script src="https://fast.wistia.com/embed/medias/<%= @video.hashid %>.jsonp" async></script>
 <script src="https://fast.wistia.com/assets/external/E-v1.js" async></script>
 <div class="wistia_responsive_padding" style="padding:62.5% 0 0 0;position:relative;">
-  <div class="wistia_responsive_wrapper" style="height:100%;left:0;position:absolute;top:0;width:100%;">
+  <div class="wistia_responsive_wrapper" style="height:80%;left:0;position:absolute;top:0;width:80%;">
     <div class="wistia_embed wistia_async_<%= @video.hashid %> videoFoam=true" style="height:100%;width:100%">&nbsp;
     </div>
+    <% @video.chapters.each do |ch| %>
+      <a href="#wistia_<%= @video.hashid %>?time=<%= ch.start_second %>"><%= ch.title %></a> |
+    <% end %>
   </div>
 </div>
 <% end %>
 
+</div>
 </div>
