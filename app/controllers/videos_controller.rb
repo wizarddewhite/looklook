@@ -31,8 +31,8 @@ class VideosController < ApplicationController
 
   def edit
     # mark video is editing to prevent multiple editing
-    if @video.is_editing == false
-      @video.is_editing = true
+    if !@video.is_editing || (Time.now > @video.is_editing)
+      @video.is_editing = Time.now + 2.hours
       @video.save
     else
       flash[:warning] = "Someone is editing..."
@@ -65,7 +65,7 @@ class VideosController < ApplicationController
       end
 
       # mark editing is done
-      @video.is_editing = false
+      @video.is_editing = nil
       @video.save
       redirect_to course_video_path(@course, @video)
     else
@@ -117,7 +117,7 @@ class VideosController < ApplicationController
   def release_editing
     @course = Course.find_by(:id => params[:course_id])
     @video = Video.find_by(:id => params[:video_id])
-    @video.is_editing = false
+    @video.is_editing = nil
     @video.save
   end
 
