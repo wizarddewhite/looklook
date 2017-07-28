@@ -1,0 +1,31 @@
+<div class="pull-right">
+  <%= link_to("Back to course", course_path(@course), :class => "btn btn-default" ) %>
+</div>
+
+<div class="container course-block" id="show-content">
+<div class="group">
+<h1> <%= @video.title %> </h1>
+<p> Description <%= @video.description %> </p>
+
+<% if !@video.hashid.nil? %>
+<script src="https://fast.wistia.com/embed/medias/<%= @video.hashid %>.jsonp" async></script>
+<script src="https://fast.wistia.com/assets/external/E-v1.js" async></script>
+<div class="wistia_responsive_padding" style="padding:62.5% 0 0 0;position:relative;">
+  <div class="wistia_responsive_wrapper" style="height:80%;left:0;position:absolute;top:0;width:80%;">
+    <div class="wistia_embed wistia_async_<%= @video.hashid %> videoFoam=true" style="height:100%;width:100%">&nbsp;
+    </div>
+    <script>
+          var hashid = "<%= @video.hashid %>"
+          var start = "<%= @chapter.start_second %>"
+          window._wq = window._wq || [];
+          _wq.push({ id: hashid, onReady: function(video) {
+              window.wistia_video = video;
+              window.wistia_video.time(start);
+          }});
+    </script>
+  </div>
+</div>
+<% end %>
+
+</div>
+</div>

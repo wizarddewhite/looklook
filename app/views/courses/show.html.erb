@@ -55,13 +55,11 @@
 <div>
 <% if current_user && @course.user == current_user %>
   <%= link_to("Add a video", new_course_video_path(@course), class: "btn btn-primary pull-right")%>
-<% end %>
-
 
 <table class="table table-boldered">
   <thread>
   <tr>
-    <td>Title</td>
+    <td>Video Title</td>
     <td>Description</td>
   </tr>
   </thread>
@@ -76,13 +74,37 @@
       <%= v.description %>
     </td>
     <td>
-    <% if current_user && current_user == @course.user %>
       <%= link_to("Edit", edit_course_video_path(@course, v)) %>
       <%= link_to("Destroy", course_video_path(@course, v), :method => :delete, :data => { :confirm => "Are you sure?" }) %>
-    <% end %>
     </td>
   </tr>
   <% end %>
   </tbody>
 </table>
+<% else %>
+<table class="table table-boldered">
+  <thread>
+  <tr>
+    <td>Chapter Title</td>
+    <td>Description</td>
+  </tr>
+  </thread>
+
+  <tbody>
+  <% @course.videos.each do |v| %>
+    <% v.chapters.order("start_second ASC").each do |ch| %>
+  <tr>
+    <td>
+      <%= link_to(ch.title, course_video_chapter_path(@course, v, ch)) %>
+    </td>
+    <td>
+      <%= ch.start_second %>
+    </td>
+  </tr>
+    <% end %>
+  <% end %>
+  </tbody>
+</table>
+
+<% end %>
 </div>

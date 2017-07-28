@@ -47,7 +47,10 @@
   <div class="wistia_responsive_wrapper" style="height:80%;left:0;position:absolute;top:0;width:80%;">
     <div class="wistia_embed wistia_async_<%= @video.hashid %> videoFoam=true" style="height:100%;width:100%">&nbsp;
     </div>
-    <% @video.chapters.each do |ch| %>
+    <% if @video.chapters.count != 0 %>
+      <p> Select the Chapter here: </p>
+    <% end %>
+    <% @video.chapters.order("start_second ASC").each do |ch| %>
       <a href="#wistia_<%= @video.hashid %>?time=<%= ch.start_second %>"><%= ch.title %></a> |
     <% end %>
   </div>
