@@ -1,0 +1,28 @@
+<div class="pull-right">
+  <%= link_to("Add a first level category", new_admin_sl_category_path, :class => "btn btn-default" ) %>
+</div>
+
+<table class="table table-boldered">
+  <thead>
+       <tr>
+           <td>类别</td>
+           <td>创建时间</td>
+       </tr>
+   </thead>
+ <tbody>
+ <% @sl_categories.each do |sl_category| %>
+ <tr>
+   <td>
+     <%= sl_category.title %>
+   </td>
+   <td>
+     <%= sl_category.created_at %>
+   </td>
+   <td>
+     <%= link_to("Edit", edit_admin_sl_category_path(sl_category)) %>
+     <%= link_to("Delete", admin_sl_category_path(sl_category), method: :delete, data: {confirm: "Are you sure?"}) %>
+   </td>
+ </tr>
+ <% end %>
+ </tbody>
+</table>
