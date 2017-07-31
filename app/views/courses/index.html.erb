@@ -7,7 +7,7 @@
 <%= form_tag courses_path, :method => :get do %>
   选择课程类别
   <span id="sl_category_select">
-    <%= collection_select(:select, :fl_category_id, FlCategory.all, :id, :title, {:selected => "#{FlCategory.first.id}"},
+    <%= collection_select(:select, :fl_category_id, [FlCategory.new] + FlCategory.all, :id, :title, {:selected => "0"},
           {:data => {  :remote => true, :url => url_for(:controller => "category", :action => "sl_category_select")}} ) %>
   </span>
 
