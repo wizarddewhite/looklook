@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170731033941) do
+ActiveRecord::Schema.define(version: 20170731154053) do
 
   create_table "chapters", force: :cascade do |t|
     t.integer  "start_second"
@@ -54,6 +54,8 @@ ActiveRecord::Schema.define(version: 20170731033941) do
     t.integer  "course_category_id"
     t.boolean  "is_hidden",          default: true
     t.string   "hashid"
+    t.integer  "fl_category_id"
+    t.integer  "sl_category_id"
   end
 
   create_table "fl_categories", force: :cascade do |t|

@@ -1,4 +1,4 @@
 
-str = "<%=j render :partial => "cat", :locals => {:fc => FlCategory.all, :fc_selected => @fl_category.id, :sc => @sl_categories, :sc_selected => @sl_category_id, :cc => [] }%>";
+str = "<%=j render :partial => "cat", :locals => {:fc => FlCategory.all, :fc_selected => @fl_category_id, :sc => @sl_categories, :sc_selected => @sl_category_id, :cc => [] }%>";
 
 $("#sl_category_select").html(str);

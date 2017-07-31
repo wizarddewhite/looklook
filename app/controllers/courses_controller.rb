@@ -52,6 +52,9 @@ class CoursesController < ApplicationController
   def create
     @course = Course.new(course_params)
     @course.user = current_user
+    @course_category = @course.course_category
+    @course.sl_category = @course_category.sl_category
+    @course.fl_category = @course.sl_category.fl_category
 
     if @course.save
       current_user.join!(@course)

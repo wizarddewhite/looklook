@@ -4,4 +4,5 @@ class SlCategory < ApplicationRecord
 
   belongs_to :fl_category
   has_many :course_categories
+  has_many :courses
 end

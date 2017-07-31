@@ -8,6 +8,8 @@ class Course < ApplicationRecord
   has_many :course_user_relationships
   has_many :students, :through => :course_user_relationships, :source => :user
 
+  belongs_to :fl_category
+  belongs_to :sl_category
   belongs_to :course_category
   has_many :videos
 

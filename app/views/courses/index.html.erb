@@ -36,6 +36,9 @@
   <thread>
   <tr>
     <td>Title</td>
+    <td>FC</td>
+    <td>SC</td>
+    <td>CC</td>
     <td>Teacher</td>
   </tr>
   </thread>
@@ -46,6 +49,15 @@
     <td>
       <%= render_course_status(course) %>
       <%= link_to(course.title, course_path(course)) %>
+    </td>
+    <td>
+      <%= course.fl_category.title %>
+    </td>
+    <td>
+      <%= course.sl_category.title %>
+    </td>
+    <td>
+      <%= course.course_category.title %>
     </td>
     <td>
       <%= course.user.nickname %>
