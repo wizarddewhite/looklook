@@ -74,6 +74,12 @@ class VideosController < ApplicationController
   end
 
   def destroy
+    if @video.chapters.count != 0
+      flash[:warning] = "Delete chapters before remove the video!"
+      redirect_to course_video_path(@course, @video)
+      return
+    end
+
     if @video.hashid
       response = Wistia.remove_video(@video.hashid)
     end
