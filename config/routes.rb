@@ -2,6 +2,8 @@ Rails.application.routes.draw do
   devise_for :users
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root 'welcome#index'
+  get 'category/sl_category_select'
+  get 'category/cc_category_select'
 
   namespace :admin do
     resources :users

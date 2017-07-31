@@ -1,0 +1,9 @@
+<span id="sl_category_select">
+
+<%= collection_select(:select, :fl_category_id, fc, :id, :title, {:selected => "#{fc_selected}"},
+        {:data => {  :remote => true, :url => url_for(:controller => "category", :action => "sl_category_select")}} ) %>
+
+<%= collection_select(:select, :sl_category_id, sc, :id, :title, {:selected => "#{sc_selected}"},
+        {:data => {  :remote => true, :url => url_for(:controller => "category", :action => "cc_category_select")}} ) %>
+
+</span>

@@ -9,7 +9,6 @@ class CoursesController < ApplicationController
   before_action :require_same_teacher_or_admin, only: [:edit, :update, :destroy, :publish, :hide]
 
   def index
-
     @courses = case params[:order]
     when 'price'
       Course.order("price DESC")
