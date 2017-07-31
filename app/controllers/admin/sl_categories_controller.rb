@@ -43,7 +43,7 @@ class Admin::SlCategoriesController < ApplicationController
   private
 
     def sl_category_params
-      params.require(:sl_category).permit(:title)
+      params.require(:sl_category).permit(:title, :fl_category_id)
     end
 
 end
