@@ -96,8 +96,8 @@ class CoursesController < ApplicationController
     if @course.update(course_params)
 
       @course_category = @course.course_category
-      @course.fl_category = @course.sl_category.fl_category
       @course.sl_category = @course_category.sl_category
+      @course.fl_category = @course.sl_category.fl_category
 
       if @course.hashid.nil?
         response = Wistia.create_project(@course.title)
