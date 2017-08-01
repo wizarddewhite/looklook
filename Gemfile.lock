@@ -207,6 +207,7 @@ DEPENDENCIES
   mini_magick
   multipart-post
   pg
+  pry
   puma (~> 3.0)
   rails (~> 5.0.1)
   sass-rails (~> 5.0)
