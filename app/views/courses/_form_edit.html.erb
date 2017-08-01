@@ -1,0 +1,36 @@
+<div class="group" id="category_edit">
+
+<%= simple_form_for course do |f| %>
+
+  <div class="group">
+    <%= f.input :title %>
+  </div>
+
+  <div class="group">
+    <%= f.input :description %>
+  </div>
+
+    <%= f.collection_select(:fl_category_id, FlCategory.all, :id, :title, {:selected => "#{fc_selected}"},
+          {:data => {  :remote => true, :url => category_edit_course_path(course)}} ) %>
+
+    <%= f.collection_select(:sl_category_id, sc, :id, :title, {:selected => "#{sc_selected}"},
+          {:data => {  :remote => true, :url => category_edit_course_path(course)}} ) %>
+
+    <%= f.association :course_category, collection: cc %>
+
+  <div class="group">
+    <%= f.input :price %>
+  </div>
+
+  <div class="group">
+    <%= f.input :is_hidden %>
+  </div>
+
+  <%= f.submit "Submit", data: { disable_with: "Submitting..." } %>
+
+<% end %>
+
+<script>
+  $("#course_course_category_id").select2();
+</script>
+</div>

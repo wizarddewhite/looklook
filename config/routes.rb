@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   root 'welcome#index'
   get 'category/sl_category_select'
   get 'category/cc_category_select'
+  get 'courses/category_create'
 
   namespace :admin do
     resources :users
@@ -19,6 +20,7 @@ Rails.application.routes.draw do
 
       post :publish
       post :hide
+      get :category_edit
     end
 
     resources :videos do

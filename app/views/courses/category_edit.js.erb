@@ -1,0 +1,7 @@
+
+str = "<%=j render :partial => "form_edit", :locals => {:course => @course, \
+  :fc => FlCategory.all, :fc_selected => @fl_category_id, \
+  :sc => @sl_categories, :sc_selected => @sl_category_id, \
+  :cc => @course_categories }%>";
+
+$("#category_edit").html(str);

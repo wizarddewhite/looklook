@@ -78,10 +78,19 @@ class CoursesController < ApplicationController
   end
 
   def edit
+    @fl_category_id = @course.fl_category_id
+    @sl_categories = @course.fl_category.sl_categories
+    @sl_category_id = @course.sl_category_id
+    @course_categories = @course.sl_category.course_categories
+
   end
 
   def update
     if @course.update(course_params)
+
+      @course_category = @course.course_category
+      @course.fl_category = @course.sl_category.fl_category
+      @course.sl_category = @course_category.sl_category
 
       if @course.hashid.nil?
         response = Wistia.create_project(@course.title)
@@ -109,7 +118,7 @@ class CoursesController < ApplicationController
       #if respon
       redirect_to course_path(@course)
     else
-      render :edit
+      redirect_to edit_course_path(@course)
     end
   end
 
@@ -164,6 +173,33 @@ class CoursesController < ApplicationController
   def hide
     @course.hide!
     redirect_to :back
+  end
+
+  def category_edit
+    @course = Course.find_by(:id => params[:id])
+    if !(params["course"]["fl_category_id"].nil? || params["course"]["fl_category_id"].empty?)
+      session[:fl_category_id] = params["course"]["fl_category_id"].to_i
+    end
+
+    if params["course"]["sl_category_id"].nil? || params["course"]["sl_category_id"].empty?
+      session[:sl_category_id] = nil
+    else
+      session[:sl_category_id] = params["course"]["sl_category_id"].to_i
+    end
+
+    @fl_category = FlCategory.find_by(:id => session[:fl_category_id])
+    @fl_category_id = @fl_category.id
+    @sl_categories = SlCategory.where(:fl_category_id => session[:fl_category_id])
+    @sl_categories = [SlCategory.new] + @sl_categories
+    if session[:sl_category_id]
+      @sl_category = SlCategory.find_by(:id => session[:sl_category_id])
+      @sl_category_id = session[:sl_category_id]
+      @course_categories = CourseCategory.where(:sl_category_id => @sl_category_id)
+    else
+      @sl_category = []
+      @sl_category_id = 0
+      @course_categories = []
+    end
   end
 
 private
