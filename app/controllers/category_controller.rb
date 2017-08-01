@@ -2,6 +2,7 @@ class CategoryController < ApplicationController
     def sl_category_select
       @fl_category = FlCategory.find_by(:id => params["select"]["fl_category_id"].to_i)
       session[:fl_category_id] = @fl_category.id
+      @fl_category_id = session[:fl_category_id]
       @sl_categories = SlCategory.where(:fl_category_id => @fl_category.id)
       @sl_categories = [SlCategory.new] + @sl_categories
       @sl_category_id = 0
