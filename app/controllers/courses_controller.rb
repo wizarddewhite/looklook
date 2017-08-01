@@ -22,10 +22,17 @@ class CoursesController < ApplicationController
       @courses = @courses.published
     end
 
-    if params[:course_category_id].present?
+    if params["select"].present?
+
        #flash[:notice] = "Hobby #{params[:course_category_id].split(",")}"
-       @courses = @courses.where( :course_category_id => params[:course_category_id]  )
-     end
+       if params["select"]["course_category_id"].present?
+         @courses = @courses.where( :course_category_id => params["select"]["course_category_id"].to_i )
+       elsif params["select"]["sl_category_id"].present?
+         @courses = @courses.where( :sl_category_id => params["select"]["sl_category_id"].to_i )
+       elsif params["select"]["fl_category_id"].present?
+         @courses = @courses.where( :fl_category_id => params["select"]["fl_category_id"].to_i )
+       end
+    end
 
     if params[:user_id].present?
       #flash[:notice] = "Hobby #{params[:course_category_id].split(",")}"
