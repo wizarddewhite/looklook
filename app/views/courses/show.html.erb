@@ -92,15 +92,26 @@
 
   <tbody>
   <% @course.videos.each do |v| %>
+    <% if v.chapters.empty? %>
+    <tr>
+      <td>
+        <%= link_to(v.title, course_video_path(@course, v)) %>
+      </td>
+      <td>
+        0
+      </td>
+    </tr>
+    <% else %>
     <% v.chapters.order("start_second ASC").each do |ch| %>
-  <tr>
-    <td>
-      <%= link_to(ch.title, course_video_chapter_path(@course, v, ch)) %>
-    </td>
-    <td>
-      <%= ch.start_second %>
-    </td>
-  </tr>
+    <tr>
+      <td>
+        <%= link_to(ch.title, course_video_chapter_path(@course, v, ch)) %>
+      </td>
+      <td>
+        <%= ch.start_second %>
+      </td>
+    </tr>
+    <% end %>
     <% end %>
   <% end %>
   </tbody>
