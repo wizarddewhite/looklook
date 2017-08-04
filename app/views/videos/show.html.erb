@@ -38,7 +38,8 @@
 <div class="container course-block" id="show-content">
 <div class="group">
 <h1> <%= @video.title %> </h1>
-<p> Description <%= @video.description %> </p>
+<p> Description  </p>
+<p><%= simple_format(@video.description) %></p>
 
 <% if !@video.hashid.nil? %>
 <script src="https://fast.wistia.com/embed/medias/<%= @video.hashid %>.jsonp" async></script>

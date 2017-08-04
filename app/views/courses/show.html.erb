@@ -71,7 +71,7 @@
       <%= link_to(v.title, course_video_path(@course, v)) %>
     </td>
     <td>
-      <%= v.description %>
+      <%= simple_format(v.description) %>
     </td>
     <td>
       <%= link_to("Edit", edit_course_video_path(@course, v)) %>
