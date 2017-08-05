@@ -4,8 +4,12 @@
 
 <div class="container course-block" id="show-content">
 <div class="group">
-<h1> <%= @video.title %> </h1>
-<p> Description <%= @video.description %> </p>
+<h1> <%= @chapter.title %> </h1>
+
+<p><%= simple_format(@video.description) %> </p>
+
+<h4> Chapter Description </h4>
+<p><%= simple_format(@chapter.description) %> </p>
 
 <% if !@video.hashid.nil? %>
 <script src="https://fast.wistia.com/embed/medias/<%= @video.hashid %>.jsonp" async></script>

@@ -50,7 +50,7 @@ class ChaptersController < ApplicationController
   private
 
     def chapter_params
-      params.require(:chapter).permit(:start_second, :title)
+      params.require(:chapter).permit(:start_second, :title, :description)
     end
 
     def find_video
