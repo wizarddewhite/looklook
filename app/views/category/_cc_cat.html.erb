@@ -6,6 +6,10 @@
 <%= collection_select(:select, :sl_category_id, sc, :id, :title, {:selected => "#{sc_selected}"},
         {:data => {  :remote => true, :url => url_for(:controller => "category", :action => "cc_category_select")}} ) %>
 
-<%= collection_select(:select, :course_category_id, cc, :id, :title, {}, {} ) %>
+<%= collection_select(:select, :course_category_id, cc, :id, :title, {}, {:multiple => true, :class => "form-control"} ) %>
 
 </span>
+
+<script>
+ $("#select_course_category_id").select2();
+</script>

@@ -25,8 +25,8 @@ class CoursesController < ApplicationController
     if params["select"].present?
 
        #flash[:notice] = "Hobby #{params[:course_category_id].split(",")}"
-       if params["select"]["course_category_id"].present?
-         @courses = @courses.where( :course_category_id => params["select"]["course_category_id"].to_i )
+       if params["select"]["course_category_id"].present? && (params["select"]["course_category_id"].count != 1)
+         @courses = @courses.where( :course_category_id => params["select"]["course_category_id"].map{ |x| x.to_i } )
        elsif params["select"]["sl_category_id"].present?
          @courses = @courses.where( :sl_category_id => params["select"]["sl_category_id"].to_i )
        elsif params["select"]["fl_category_id"].present?
