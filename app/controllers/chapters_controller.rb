@@ -1,5 +1,5 @@
 class ChaptersController < ApplicationController
-  before_action :authenticate_user! , only: [:new, :create, :edit, :update, :destroy]
+  before_action :authenticate_user! , only: [:new, :create, :edit, :update, :destroy, :show]
   before_action :find_course, only: [:new, :create, :edit, :update, :show, :destroy]
   before_action :find_video, only: [:new, :create, :edit, :update, :show, :destroy]
   before_action :require_same_teacher_or_admin, only: [:new, :create, :edit, :update, :destroy, :remove, :upload]
