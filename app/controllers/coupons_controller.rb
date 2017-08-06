@@ -27,7 +27,7 @@ class CouponsController < ApplicationController
     if current_user.has_joined_course?(@course)
       flash[:warning] = "You have already joined #{@course.title}"
     else
-      if @coupon.quantity <= 0
+      if @coupon.quantity <= 0 || @coupon.expire < Time.now
         flash[:warning] = "No coupon left, be earlier next time"
         redirect_to course_path(@course)
         return

@@ -27,6 +27,7 @@
     <tr>
       <td>Price</td>
       <td>Quantity</td>
+      <td>Expire</td>
       <td>Share the Link to User</td>
     </tr>
     </thread>
@@ -38,6 +39,9 @@
       </td>
       <td>
         <%= c.quantity %>
+      </td>
+      <td>
+        <%= c.expire %>
       </td>
       <td>
         <a href="<%= course_coupon_url(@course, c.token) %>">Link</a>
