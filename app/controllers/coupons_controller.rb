@@ -51,7 +51,7 @@ class CouponsController < ApplicationController
 
 private
   def coupon_params
-    params.require(:coupon).permit(:price, :quantity)
+    params.require(:coupon).permit(:price, :quantity, :expire)
   end
 
   def require_is_course_teacher

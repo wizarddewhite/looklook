@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170805000412) do
+ActiveRecord::Schema.define(version: 20170806170808) do
 
   create_table "chapters", force: :cascade do |t|
     t.integer  "start_second"
@@ -28,6 +28,7 @@ ActiveRecord::Schema.define(version: 20170805000412) do
     t.string   "token"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.date     "expire"
   end
 
   create_table "course_categories", force: :cascade do |t|

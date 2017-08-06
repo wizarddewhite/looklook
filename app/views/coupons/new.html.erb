@@ -9,6 +9,14 @@
     <%= f.input :quantity %>
   </div>
 
+  <div class="group1">
+    <%= f.input :expire, :as => :string %>
+  </div>
+
   <%= f.submit "Submit", data: { disable_with: "Submitting..." } %>
 
 <% end %>
+
+<script>
+  $("#coupon_expire").datepicker({ format: "yyyy/mm/dd" });
+</script>
