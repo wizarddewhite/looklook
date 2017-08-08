@@ -1,21 +1,21 @@
-<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+<nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse"
-              data-target=".navbar-ex1-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
+              Menu <i class="fa fa-bars"></i>
           </button>
 
-          <a class="navbar-brand" href="/">Skeleton</a>
-          <a class="navbar-brand" href="/courses">Courses</a>
+          <a class="navbar-brand page-scroll" href="/">
+            <i class="fa fa-eye"></i>
+          </a>
+          <a class="navbar-brand" href="/courses">
+            <i class="fa fa-book"></i>
+          </a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse navbar-ex1-collapse" id="bs-example-navbar-collapse-1" aria-expanded="false">
+        <div class="collapse navbar-collapse navbar-main-collapse" id="bs-example-navbar-collapse-1" aria-expanded="false">
             <ul class="nav navbar-nav navbar-right">
                 <li>
                   <% if !current_user %>
@@ -33,9 +33,9 @@
                           <li class="divider"> </li>
                         <% end %>
                         <% if current_user.is_teacher? %>
-                        <li> <%= link_to("My Classes", account_classes_path) %></li>
+                        <li> <%= link_to(content_tag(:i, "我的班级", class: 'fa fa-briefcase'), account_classes_path) %></li>
                         <% end %>
-                        <li> <%= link_to("My Courses", account_courses_path) %></li>
+                        <li> <%= link_to(content_tag(:i, "我的课程", class: 'fa fa-shopping-bag'), account_courses_path) %></li>
                         <li class="divider"> </li>
                         <li><%= link_to(content_tag(:i, "修改", class: 'fa fa-user-circle'), edit_registration_path(:user)) %></li>
                         <li><%= link_to(content_tag(:i, "退出", class: 'fa fa-sign-out'), destroy_user_session_path, method: :delete) %></li>

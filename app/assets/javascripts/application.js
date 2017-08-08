@@ -17,4 +17,5 @@
 //= require bootstrap-sprockets
 //= require select2
 //= require bootstrap-datepicker
+//= require blog
 //= require_tree .
