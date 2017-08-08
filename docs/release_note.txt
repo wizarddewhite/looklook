@@ -9,3 +9,4 @@ v1.6: three level course category implementation
       refine the display message on video/chapter
 v1.7: add expire to coupon
       suitable for mobile device
+v2.0: change name to witaction
