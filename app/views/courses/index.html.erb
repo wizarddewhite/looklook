@@ -14,8 +14,10 @@
 <p></p>
 
   选择课程老师
-<%= select_tag :user_id, options_for_select(User.where(:is_teacher => true).map{ |u| [u.nickname, u.id] }, params[:user_ids]), :multiple => true , :class => "form-control" %>
-<%= submit_tag "Submit" %>
+  <span id="cc_select_id">
+    <%= select_tag :user_id, options_for_select(User.where(:is_teacher => true).map{ |u| [u.nickname, u.id] }, params[:user_ids]), :multiple => true , :class => "form-control" %>
+  </span>
+  <%= submit_tag "Submit", class: 'btn-default' %>
 <% end %>
 
 <div class="dropdown clearfix pull-right">
