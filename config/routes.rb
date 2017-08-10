@@ -35,6 +35,8 @@ Rails.application.routes.draw do
     resources :coupons
   end
 
+  resources :teachers
+
   namespace :account do
     resources :courses
     resources :classes

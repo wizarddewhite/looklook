@@ -1,0 +1,16 @@
+<table class="table table-boldered">
+  <% @teachers.each do |teacher| %>
+  <tr>
+    <td>
+      <%= link_to teacher.nickname, teacher_path(teacher) %>
+    </td>
+    <td>
+      <% if teacher.image.present? %>
+          <%= image_tag(teacher.image.thumb.url, class: "thumbnail") %>
+      <% else %>
+          <%= image_tag("http://placehold.it/200x200&text=No Pic", class: "thumbnail") %>
+      <% end %>
+    </td>
+  </tr>
+  <% end %>
+</table>

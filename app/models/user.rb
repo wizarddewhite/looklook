@@ -5,6 +5,8 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable, :confirm_within => 5.days
   validates :nickname, presence: true
 
+  mount_uploader :image, ImageUploader
+
   scope :name_alphabetical, -> { order('nickname ASC') }
   scope :name_alphabetical_rev, -> { order('nickname DESC') }
 
