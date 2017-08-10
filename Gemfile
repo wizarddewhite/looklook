@@ -47,8 +47,8 @@ gem 'mini_magick'
 gem 'multipart-post'
 gem 'figaro'
 gem 'bootstrap-datepicker-rails'
-# gem 'carrierwave-qiniu'
-# gem 'qiniu-rs'
+gem 'carrierwave-qiniu'
+gem 'qiniu-rs'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
