@@ -26,10 +26,10 @@
     </button>
     <ul class="dropdown-menu" aria-labelledby="dropdownMenuDivider">
         <li>
-            <%= link_to("按照价格排序", courses_path(:order => "price")) %>
+            <%= link_to("按照人次排序", courses_path(:order => "participants")) %>
         </li>
         <li>
-            <%= link_to("按照价格倒排", courses_path(:order => "price_rev")) %>
+            <%= link_to("按照人次倒排", courses_path(:order => "participants_rev")) %>
         </li>
     </ul>
 </div>
