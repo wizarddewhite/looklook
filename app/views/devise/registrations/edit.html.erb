@@ -8,6 +8,7 @@
     <%= f.input :nickname, required: true, autofocus: true %>
     <% if current_user.is_teacher %>
     <%= f.input :image, autofocus: true, as: :file %>
+    <%= f.input :description, autofocus: true %>
     <% end %>
 
     <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
