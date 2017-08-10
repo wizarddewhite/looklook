@@ -36,10 +36,9 @@
   <thread>
   <tr>
     <td>Title</td>
-    <td>FC</td>
-    <td>SC</td>
-    <td>CC</td>
-    <td>Teacher</td>
+    <td>Category</td>
+    <td>Presenter</td>
+    <td>Participants</td>
   </tr>
   </thread>
 
@@ -51,16 +50,13 @@
       <%= link_to(course.title, course_path(course)) %>
     </td>
     <td>
-      <%= course.fl_category.title %>
-    </td>
-    <td>
-      <%= course.sl_category.title %>
-    </td>
-    <td>
       <%= course.course_category.title %>
     </td>
     <td>
       <%= course.user.nickname %>
+    </td>
+    <td>
+      <%= course.students.count %>
     </td>
     <td>
     <% if current_user && current_user == course.user %>
