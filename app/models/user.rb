@@ -20,9 +20,13 @@ class User < ApplicationRecord
 
   def join!(course)
     participated_courses << course
+    course.students_count += 1
+    course.save
   end
 
   def quit!(course)
     participated_courses.delete(course)
+    course.students_count -= 1
+    course.save
   end
 end

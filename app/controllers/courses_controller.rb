@@ -153,7 +153,6 @@ class CoursesController < ApplicationController
   def join
     if !current_user.has_joined_course?(@course)
       current_user.join!(@course)
-      @course.students_count += 1
       flash[:notice] = "加入本课程成功！"
     else
       flash[:warning] = "您已加入本课程！"
@@ -165,7 +164,6 @@ class CoursesController < ApplicationController
   def quit
     if current_user.has_joined_course?(@course)
       current_user.quit!(@course)
-      @course.students_count -= 1
       flash[:notice] = "已退出本课程！"
     else
       flash[:warning] = "您还没加入本课程，如何退出？？？"
