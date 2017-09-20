@@ -130,7 +130,7 @@ class VideosController < ApplicationController
 private
 
   def video_params
-    params.require(:video).permit(:title, :description, :hashid)
+    params.require(:video).permit(:title, :description, :hashid, :position)
   end
 
   def find_video

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170810123728) do
+ActiveRecord::Schema.define(version: 20170920014543) do
 
   create_table "chapters", force: :cascade do |t|
     t.integer  "start_second"
@@ -110,6 +110,7 @@ ActiveRecord::Schema.define(version: 20170810123728) do
     t.integer  "course_id"
     t.string   "attachment"
     t.datetime "is_editing"
+    t.integer  "position"
   end
 
 end

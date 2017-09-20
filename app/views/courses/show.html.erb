@@ -69,7 +69,7 @@
   </thread>
 
   <tbody>
-  <% @course.videos.each do |v| %>
+  <% @course.videos.order('Position ASC').each do |v| %>
   <tr>
     <td>
       <%= link_to(v.title, course_video_path(@course, v)) %>
