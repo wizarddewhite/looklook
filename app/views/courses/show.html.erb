@@ -95,7 +95,7 @@
   </thread>
 
   <tbody>
-  <% @course.videos.each do |v| %>
+  <% @course.videos.order('Position ASC').each do |v| %>
     <% if v.chapters.empty? %>
     <tr>
       <td>
